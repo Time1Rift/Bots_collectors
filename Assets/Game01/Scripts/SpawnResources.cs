@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpawnResources : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class SpawnResources : MonoBehaviour
 
         for (int i = 0; i < transform.childCount; i++)
             _points[i] = transform.GetChild(i);
-
+        
         _createResource = StartCoroutine(CreateResource());
     }
 

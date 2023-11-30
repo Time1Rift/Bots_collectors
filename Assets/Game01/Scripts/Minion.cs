@@ -27,7 +27,10 @@ public class Minion : MonoBehaviour
             _movement = StartCoroutine(Movement(_targetPosition));
 
             if (transform.childCount > 0)
+            {
+                StopCoroutineMovement();
                 _isHolds = true;
+            }                
         }
 
         if(_isHolds == true)
