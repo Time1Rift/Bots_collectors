@@ -8,17 +8,11 @@ public class Minion : MonoBehaviour
     [SerializeField] private float _speed;
 
     private Vector3 _targetPosition;
-    private Vector3 _startPosition;
     private bool _isHolds = false;
     private bool _isFree = true;
     private Coroutine _movement;
 
     public bool IsFree => _isFree;
-
-    public void Start()
-    {
-        _startPosition = transform.position;
-    }
 
     private void OnDisable()
     {
@@ -43,15 +37,10 @@ public class Minion : MonoBehaviour
 
             if (transform.childCount == 0)
             {
+                StopCoroutineMovement();
                 _isHolds = false;
                 _isFree = true;
             }                
-        }
-
-        if (_isFree && _isHolds == false)
-        {
-            StopCoroutineMovement();
-            _movement = StartCoroutine(Movement(_startPosition));
         }
     }
 

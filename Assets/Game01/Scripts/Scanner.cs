@@ -18,15 +18,17 @@ public class Scanner : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, _radius, _resourceMask);
+        List<Collider> hitColliders = new List<Collider>();
 
-        for (int i = 0; i < hitColliders.Length; i++)
+        hitColliders.AddRange(Physics.OverlapSphere(transform.position, _radius, _resourceMask));
+
+        for (int i = 0; i < _minions.Count; i++)
         {
-            for (int j = 0; j < _minions.Count; j++)
+            for (int j = 0; j < hitColliders.Count; j++)
             {
-                if (_minions[j].IsFree)
+                if (_minions[i].IsFree)
                 {
-                    _minions[j].SetTargetPosition(hitColliders[i].transform.position);
+                    _minions[i].SetTargetPosition(hitColliders[j].transform.position);
                 }
             }
         }
