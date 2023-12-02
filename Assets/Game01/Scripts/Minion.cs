@@ -10,37 +10,29 @@ public class Minion : MonoBehaviour
     private Vector3 _targetPosition;
     private bool _isHolds = false;
     private bool _isFree = true;
-    private Coroutine _movement;
 
     public bool IsFree => _isFree;
-
-    private void OnDisable()
-    {
-        StopCoroutineMovement();
-    }
 
     private void Update()
     {
         if (_isFree == false && _isHolds == false)
         {
-            StopCoroutineMovement();
-            _movement = StartCoroutine(Movement(_targetPosition));
+            Movement(_targetPosition);
 
             if (transform.childCount > 0)
-                _isHolds = true;   
+                _isHolds = true;
         }
 
-        if(_isHolds == true)
+        if (_isHolds == true)
         {
-            StopCoroutineMovement();
-            _movement = StartCoroutine(Movement(_positionBase.position));
+            Movement(_positionBase.position);
 
             if (transform.childCount == 0)
             {
-                StopCoroutineMovement();
+                transform.position = transform.position;
                 _isHolds = false;
                 _isFree = true;
-            }                
+            }
         }
     }
 
@@ -52,19 +44,9 @@ public class Minion : MonoBehaviour
         _isFree = false;
     }
 
-    private void StopCoroutineMovement()
+    private void Movement(Vector3 position)
     {
-        if (_movement != null)
-            StopCoroutine(_movement);
-    }
-
-    private IEnumerator Movement(Vector3 position)
-    {
-        while (transform.position != position)
-        {
-            transform.forward = position - transform.position;
-            transform.position = Vector3.MoveTowards(transform.position, position, _speed * Time.deltaTime);
-            yield return null;
-        }        
+        transform.forward = position - transform.position;
+        transform.position = Vector3.MoveTowards(transform.position, position, _speed * Time.deltaTime);
     }
 }

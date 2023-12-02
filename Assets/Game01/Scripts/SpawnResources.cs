@@ -3,21 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(BoxCollider))]
 public class SpawnResources : MonoBehaviour
 {
     [SerializeField] private Resource _resource;
     [SerializeField] private float _timeBetweenSpawn;
 
-    private Transform[] _points;
     private Coroutine _createResource;
+    private BoxCollider _boxCollider;
 
     private void Start()
     {
-        _points = new Transform[transform.childCount];
-
-        for (int i = 0; i < transform.childCount; i++)
-            _points[i] = transform.GetChild(i);
-        
+        _boxCollider = GetComponent<BoxCollider>();
         _createResource = StartCoroutine(CreateResource());
     }
 
@@ -30,11 +27,12 @@ public class SpawnResources : MonoBehaviour
     private IEnumerator CreateResource()
     {
         var interval = new WaitForSecondsRealtime(_timeBetweenSpawn);
+        float height = 0.3f;
 
         while (enabled)
         {
-            int index = Random.Range(0, transform.childCount);
-            Instantiate(_resource, _points[index].position, Quaternion.identity);
+            Vector3 position = new Vector3(Random.Range(0, _boxCollider.size.x), height, Random.Range(0, _boxCollider.size.z));
+            Instantiate(_resource, position, Quaternion.identity);
             yield return interval;
         }
     }
