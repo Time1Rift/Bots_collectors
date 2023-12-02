@@ -27,10 +27,7 @@ public class Minion : MonoBehaviour
             _movement = StartCoroutine(Movement(_targetPosition));
 
             if (transform.childCount > 0)
-            {
-                StopCoroutineMovement();
-                _isHolds = true;
-            }                
+                _isHolds = true;   
         }
 
         if(_isHolds == true)
@@ -47,6 +44,8 @@ public class Minion : MonoBehaviour
         }
     }
 
+    public bool TryHandsBusy() => transform.childCount == 0;
+
     public void SetTargetPosition(Vector3 position)
     {
         _targetPosition = position;
@@ -61,7 +60,7 @@ public class Minion : MonoBehaviour
 
     private IEnumerator Movement(Vector3 position)
     {
-        while (enabled)
+        while (transform.position != position)
         {
             transform.forward = position - transform.position;
             transform.position = Vector3.MoveTowards(transform.position, position, _speed * Time.deltaTime);

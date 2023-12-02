@@ -20,9 +20,12 @@ public class Resource : MonoBehaviour
 
         if (collision.collider.TryGetComponent(out Minion minion))
         {
-            transform.SetParent(minion.transform);
-            Destroy(_rigidbody);
-            transform.position = new Vector3(transform.position.x, positionFeight, transform.position.z);
+            if (minion.TryHandsBusy())
+            {
+                transform.SetParent(minion.transform);
+                Destroy(_rigidbody);
+                transform.position = new Vector3(transform.position.x, positionFeight, transform.position.z);
+            }
         }
     }
 
