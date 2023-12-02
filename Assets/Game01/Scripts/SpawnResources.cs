@@ -32,7 +32,8 @@ public class SpawnResources : MonoBehaviour
         while (enabled)
         {
             Vector3 position = new Vector3(Random.Range(0, _boxCollider.size.x), height, Random.Range(0, _boxCollider.size.z));
-            Instantiate(_resource, position, Quaternion.identity);
+            Resource resource = Instantiate(_resource, position, Quaternion.identity);
+            transform.GetComponentInParent<Scanner>().AddResources(resource);
             yield return interval;
         }
     }

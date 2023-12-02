@@ -4,24 +4,18 @@ using UnityEngine;
 
 public class Scanner : MonoBehaviour
 {
-    [SerializeField] private LayerMask _resourceMask;
-    [SerializeField] private  float _radius;
+    private Queue<Resource> _resources = new Queue<Resource>();
 
-    public List<Collider> Scan()
+    public void AddResources(Resource resource)
     {
-        List<Collider> hitColliders = new List<Collider>();
-        List<Collider> resources = new List<Collider>();
-        hitColliders.AddRange(Physics.OverlapSphere(transform.position, _radius, _resourceMask));
+        _resources.Enqueue(resource);
+    }
 
-        for (int i = 0; i < hitColliders.Count; i++)
-        {
-            if (hitColliders[i].GetComponent<Resource>().IsFound == false)
-            {
-                hitColliders[i].GetComponent<Resource>().ChangeStatus();
-                resources.Add(hitColliders[i]);
-            }
-        }
+    public bool TryHereResources() => _resources.Count > 0;
 
-        return resources;
+    public Vector3 GetTargetPosition()
+    {
+        Resource resource = _resources.Dequeue();
+        return resource.transform.position;
     }
 }
