@@ -16,6 +16,12 @@ public class Scanner : MonoBehaviour
     public Vector3 GetTargetPosition()
     {
         Resource resource = _resources.Dequeue();
+
+        while (resource == null)
+        {
+            resource = _resources.Dequeue();
+        }
+
         return resource.transform.position;
     }
 }

@@ -13,7 +13,9 @@ GameObject:
   - component: {fileID: 8557773931275611381}
   - component: {fileID: 5170302757599597133}
   - component: {fileID: 5677794577158792953}
-  - component: {fileID: 1454171050044670516}
+  - component: {fileID: 5000265896453109676}
+  - component: {fileID: 3270722909865720283}
+  - component: {fileID: 5081985464962938788}
   m_Layer: 0
   m_Name: minion
   m_TagString: Untagged
@@ -105,8 +107,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.55
+  m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5677794577158792953
@@ -136,7 +138,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1454171050044670516
+--- !u!114 &5000265896453109676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3083551712825677464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9493d7618fcb72740b330418d1463fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 4
+--- !u!114 &3270722909865720283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3083551712825677464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dffc4d7890aa44148947cd78f0164da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5081985464962938788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,5 +175,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3f2a005fbb70349ba95bfb071365fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _positionBase: {fileID: 0}
-  _speed: 2

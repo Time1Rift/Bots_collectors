@@ -10,17 +10,19 @@ public class Base : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
+        {
             _minions.Add(transform.GetChild(i).GetComponent<Minion>());
+        }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         for (int i = 0; i < _minions.Count; i++)
         {
             if (_minions[i].IsFree && transform.GetComponentInParent<Scanner>().TryHereResources())
             {
                 Vector3 position = transform.GetComponentInParent<Scanner>().GetTargetPosition();
-                _minions[i].SetTargetPosition(position);
+                _minions[i].GoAfterResource(position);
             }
         }
     }

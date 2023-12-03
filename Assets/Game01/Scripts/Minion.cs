@@ -1,52 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Minion : MonoBehaviour
 {
-    [SerializeField] private Transform _positionBase;
-    [SerializeField] private float _speed;
+    private MinionMover _minionMover;
+    private MinionCollector _minionCollector;
+    private Vector3 _targetBase;
 
-    private Vector3 _targetPosition;
-    private bool _isHolds = false;
-    private bool _isFree = true;
+    public bool IsFree { get; private set; }
 
-    public bool IsFree => _isFree;
-
-    private void Update()
+    private void Awake()
     {
-        if (_isFree == false && _isHolds == false)
-        {
-            Movement(_targetPosition);
-
-            if (transform.childCount > 0)
-                _isHolds = true;
-        }
-
-        if (_isHolds == true)
-        {
-            Movement(_positionBase.position);
-
-            if (transform.childCount == 0)
-            {
-                transform.position = transform.position;
-                _isHolds = false;
-                _isFree = true;
-            }
-        }
+        IsFree = true;
+        _targetBase = transform.GetComponentInParent<Base>().transform.position;
+        _minionMover = GetComponent<MinionMover>();
+        _minionCollector = GetComponent<MinionCollector>();
     }
 
-    public bool TryHandsBusy() => transform.childCount == 0;
-
-    public void SetTargetPosition(Vector3 position)
+    public void OnEnable()
     {
-        _targetPosition = position;
-        _isFree = false;
+        _minionCollector.ResourceCollected += AssignResourceBase;
     }
 
-    private void Movement(Vector3 position)
+    public void OnDisable()
     {
-        transform.forward = position - transform.position;
-        transform.position = Vector3.MoveTowards(transform.position, position, _speed * Time.deltaTime);
+        _minionCollector.ResourceCollected -= AssignResourceBase;
+    }
+
+    public void SubmitResource()
+    {
+        Destroy(transform.GetChild(0).gameObject);
+        IsFree = true;
+    }
+
+    public void GoAfterResource(Vector3 position)
+    {
+        IsFree = false;
+        _minionMover.SetTargetPosition(position);
+    }
+
+    private void AssignResourceBase()
+    {
+        _minionMover.SetTargetPosition(_targetBase);
     }
 }
