@@ -13,7 +13,7 @@ public class Scanner : MonoBehaviour
 
     public bool TryHereResources() => _resources.Count > 0;
 
-    public Vector3 GetTargetPosition()
+    public Resource GetResource()
     {
         Resource resource = _resources.Dequeue();
 
@@ -22,6 +22,6 @@ public class Scanner : MonoBehaviour
             resource = _resources.Dequeue();
         }
 
-        return resource.transform.position;
+        return resource;
     }
 }

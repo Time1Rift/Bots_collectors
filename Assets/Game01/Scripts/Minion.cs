@@ -35,10 +35,11 @@ public class Minion : MonoBehaviour
         IsFree = true;
     }
 
-    public void GoAfterResource(Vector3 position)
+    public void GoAfterResource(Resource resource)
     {
         IsFree = false;
-        _minionMover.SetTargetPosition(position);
+        _minionCollector.SetTargetResource(resource);
+        _minionMover.SetTargetPosition(resource.transform.position);
     }
 
     private void AssignResourceBase()

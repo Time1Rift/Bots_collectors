@@ -5,24 +5,24 @@ using UnityEngine;
 
 public class MinionCollector : MonoBehaviour
 {
-    private bool _haveResource;
+    private Resource _resource;
 
     public event Action ResourceCollected;
-
-    private void Update()
-    {
-        _haveResource = transform.childCount > 0;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         float height = 0.5f;
 
-        if (other.TryGetComponent(out Resource resource) && _haveResource == false && resource.GetComponentInParent<Minion>() == false)
+        if (other.TryGetComponent(out Resource resource) && _resource == resource)
         {
             resource.transform.SetParent(transform);
             transform.position = new Vector3(transform.position.x, height, transform.position.z);
             ResourceCollected?.Invoke();
         }
+    }
+
+    public void SetTargetResource(Resource resource)
+    {
+        _resource = resource;
     }
 }

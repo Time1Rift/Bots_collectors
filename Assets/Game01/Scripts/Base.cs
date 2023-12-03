@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class Base : MonoBehaviour
 {
     private List<Minion> _minions = new List<Minion>();
+    private Scanner _scanner;
 
     private void Start()
     {
@@ -13,16 +14,17 @@ public class Base : MonoBehaviour
         {
             _minions.Add(transform.GetChild(i).GetComponent<Minion>());
         }
+
+        _scanner = transform.GetComponentInParent<Scanner>();
     }
 
     private void Update()
     {
         for (int i = 0; i < _minions.Count; i++)
         {
-            if (_minions[i].IsFree && transform.GetComponentInParent<Scanner>().TryHereResources())
+            if (_minions[i].IsFree && _scanner.TryHereResources())
             {
-                Vector3 position = transform.GetComponentInParent<Scanner>().GetTargetPosition();
-                _minions[i].GoAfterResource(position);
+                _minions[i].GoAfterResource(_scanner.GetResource());
             }
         }
     }
