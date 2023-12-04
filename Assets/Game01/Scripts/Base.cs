@@ -11,9 +11,7 @@ public class Base : MonoBehaviour
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
-        {
             _minions.Add(transform.GetChild(i).GetComponent<Minion>());
-        }
 
         _scanner = transform.GetComponentInParent<Scanner>();
     }
@@ -23,9 +21,7 @@ public class Base : MonoBehaviour
         for (int i = 0; i < _minions.Count; i++)
         {
             if (_minions[i].IsFree && _scanner.TryHereResources())
-            {
                 _minions[i].GoAfterResource(_scanner.GetResource());
-            }
         }
     }
 }

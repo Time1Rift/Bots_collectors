@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(MinionMover)), RequireComponent(typeof(MinionCollector))]
 public class Minion : MonoBehaviour
 {
     private MinionMover _minionMover;
@@ -29,9 +30,9 @@ public class Minion : MonoBehaviour
         _minionCollector.ResourceCollected -= AssignResourceBase;
     }
 
-    public void SubmitResource()
+    public void SubmitResource(Resource resource)
     {
-        Destroy(transform.GetChild(0).gameObject);
+        Destroy(resource.gameObject);
         IsFree = true;
     }
 

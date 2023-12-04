@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Storage : MonoBehaviour
+public class BaseCollector : MonoBehaviour
 {
     private int _point;
 
@@ -11,11 +11,13 @@ public class Storage : MonoBehaviour
     {
         if (other.TryGetComponent(out Minion minion))
         {
-            if (minion.transform.childCount > 0)
+            Resource resource = minion.GetComponentInChildren<Resource>();
+
+            if (resource != null)
             {
                 _point++;
                 Debug.Log("ресурсов - " + _point);
-                minion.SubmitResource();
+                minion.SubmitResource(resource);
             }            
         }
     }

@@ -18,9 +18,7 @@ public class Scanner : MonoBehaviour
         Resource resource = _resources.Dequeue();
 
         while (resource == null)
-        {
             resource = _resources.Dequeue();
-        }
 
         return resource;
     }
