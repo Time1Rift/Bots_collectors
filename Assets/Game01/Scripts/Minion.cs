@@ -20,12 +20,12 @@ public class Minion : MonoBehaviour
         _minionCollector = GetComponent<MinionCollector>();
     }
 
-    public void OnEnable()
+    private void OnEnable()
     {
         _minionCollector.ResourceCollected += AssignResourceBase;
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         _minionCollector.ResourceCollected -= AssignResourceBase;
     }
