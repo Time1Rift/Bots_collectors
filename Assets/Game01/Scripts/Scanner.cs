@@ -4,12 +4,8 @@ using UnityEngine;
 
 public class Scanner : MonoBehaviour
 {
+    private float _radius = 200;
     private Queue<Resource> _resources = new Queue<Resource>();
-
-    public void AddResources(Resource resource)
-    {
-        _resources.Enqueue(resource);
-    }
 
     public bool TryHereResources() => _resources.Count > 0;
 
@@ -21,5 +17,19 @@ public class Scanner : MonoBehaviour
             resource = _resources.Dequeue();
 
         return resource;
+    }
+
+    public void Scan()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, _radius);
+
+        foreach (var collider in colliders)
+        {
+            if (collider.TryGetComponent<Resource>(out Resource resource) && resource.IsReserved == false)
+            {
+                resource.Reserve();
+                _resources.Enqueue((Resource)resource);
+            }
+        }
     }
 }

@@ -5,23 +5,31 @@ using UnityEngine.UIElements;
 
 public class Base : MonoBehaviour
 {
-    private List<Minion> _minions = new List<Minion>();
+    private Queue<Minion> _minions = new Queue<Minion>();
     private Scanner _scanner;
 
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
-            _minions.Add(transform.GetChild(i).GetComponent<Minion>());
+            _minions.Enqueue(transform.GetChild(i).GetComponent<Minion>());
 
         _scanner = transform.GetComponentInParent<Scanner>();
     }
 
     private void Update()
     {
-        for (int i = 0; i < _minions.Count; i++)
+        if(_scanner.TryHereResources() == false)
+            _scanner.Scan();
+
+        while (_minions.Count > 0 && _scanner.TryHereResources())
         {
-            if (_minions[i].IsFree && _scanner.TryHereResources())
-                _minions[i].GoAfterResource(_scanner.GetResource());
+            Minion minion = _minions.Dequeue();
+            minion.GoAfterResource(_scanner.GetResource());
         }
+    }
+
+    public void AddMinion(Minion minion)
+    {
+        _minions.Enqueue(minion);
     }
 }

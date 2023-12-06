@@ -3,9 +3,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(Base))]
 public class BaseCollector : MonoBehaviour
 {
     private int _point;
+    private Base _base;
+
+    private void Awake()
+    {
+        _base = GetComponent<Base>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,6 +25,7 @@ public class BaseCollector : MonoBehaviour
                 _point++;
                 Debug.Log("ресурсов - " + _point);
                 minion.SubmitResource(resource);
+                _base.AddMinion(minion);
             }            
         }
     }

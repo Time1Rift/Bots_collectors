@@ -10,11 +10,8 @@ public class Minion : MonoBehaviour
     private MinionCollector _minionCollector;
     private Vector3 _targetBase;
 
-    public bool IsFree { get; private set; }
-
     private void Awake()
     {
-        IsFree = true;
         _targetBase = transform.GetComponentInParent<Base>().transform.position;
         _minionMover = GetComponent<MinionMover>();
         _minionCollector = GetComponent<MinionCollector>();
@@ -33,12 +30,10 @@ public class Minion : MonoBehaviour
     public void SubmitResource(Resource resource)
     {
         Destroy(resource.gameObject);
-        IsFree = true;
     }
 
     public void GoAfterResource(Resource resource)
     {
-        IsFree = false;
         _minionCollector.SetTargetResource(resource);
         _minionMover.SetTargetPosition(resource.transform.position);
     }
