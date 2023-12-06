@@ -25,7 +25,9 @@ public class Scanner : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            if (collider.TryGetComponent<Resource>(out Resource resource) && resource.IsReserved == false)
+            if (collider.TryGetComponent<Resource>(out Resource resource) 
+                && resource.IsReserved == false 
+                && _resources.Contains(resource) == false)
             {
                 resource.Reserve();
                 _resources.Enqueue((Resource)resource);
