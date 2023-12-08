@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scanner : MonoBehaviour
+public class BaseScanner : MonoBehaviour
 {
     private float _radius = 200;
     private Queue<Resource> _resources = new Queue<Resource>();

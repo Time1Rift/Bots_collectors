@@ -23,7 +23,7 @@ public class BaseCollector : MonoBehaviour
             if (resource != null)
             {
                 _point++;
-                Debug.Log("ресурсов - " + _point);
+                Debug.Log($"В { _base.name} ресурсов - { _point}");
                 minion.SubmitResource(resource);
                 _base.AddMinion(minion);
             }            

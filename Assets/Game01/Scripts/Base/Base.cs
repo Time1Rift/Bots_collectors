@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(BaseScanner))]
 public class Base : MonoBehaviour
 {
     private Queue<Minion> _minions = new Queue<Minion>();
-    private Scanner _scanner;
+    private BaseScanner _scanner;
+
+    private void Awake()
+    {
+        _scanner = GetComponent<BaseScanner>();
+    }
 
     private void Start()
     {
         for (int i = 0; i < transform.childCount; i++)
             _minions.Enqueue(transform.GetChild(i).GetComponent<Minion>());
-
-        _scanner = transform.GetComponentInParent<Scanner>();
     }
 
     private void Update()
