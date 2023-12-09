@@ -22,8 +22,7 @@ public class Base : MonoBehaviour
 
     private void Update()
     {
-        if(_scanner.TryHereResources() == false)
-            _scanner.Scan();
+        GoScan();
 
         while (_minions.Count > 0 && _scanner.TryHereResources())
         {
@@ -35,5 +34,11 @@ public class Base : MonoBehaviour
     public void AddMinion(Minion minion)
     {
         _minions.Enqueue(minion);
+    }
+
+    private void GoScan()
+    {
+        if (_scanner.TryHereResources() == false)
+            _scanner.Scan();
     }
 }
