@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class MinionMover : MonoBehaviour
     {
         if (_haveTarget)
         {
-            transform.forward = _targetPosition - transform.position;
+            transform.LookAt(_targetPosition); // смотреть в сторону цели
             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
 
             if (transform.position == _targetPosition)
