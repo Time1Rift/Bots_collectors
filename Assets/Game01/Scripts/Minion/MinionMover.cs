@@ -14,7 +14,7 @@ public class MinionMover : MonoBehaviour
     {
         if (_haveTarget)
         {
-            transform.LookAt(_targetPosition); // смотреть в сторону цели
+            transform.LookAt(_targetPosition);
             transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
 
             if (transform.position == _targetPosition)
