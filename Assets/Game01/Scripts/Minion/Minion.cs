@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MinionMover)), RequireComponent(typeof(MinionCollector))]
+[RequireComponent(typeof(MinionMover), typeof(MinionCollector))]
 public class Minion : MonoBehaviour
 {
     private MinionMover _minionMover;

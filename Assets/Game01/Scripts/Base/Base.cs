@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Base : MonoBehaviour
 {
-    private Queue<Minion> _minions = new Queue<Minion>();
+    private Queue<Minion> _minions = new();
     private Scanner _scanner;
 
     private void Awake()
