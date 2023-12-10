@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(MinionMover)), RequireComponent(typeof(MinionCollector))]
@@ -27,10 +24,7 @@ public class Minion : MonoBehaviour
         _minionCollector.ResourceCollected -= AssignResourceBase;
     }
 
-    public void SubmitResource(Resource resource)
-    {
-        Destroy(resource.gameObject);
-    }
+    public void SubmitResource(Resource resource) => Destroy(resource.gameObject);
 
     public void GoAfterResource(Resource resource)
     {
@@ -38,8 +32,5 @@ public class Minion : MonoBehaviour
         _minionMover.SetTargetPosition(resource.transform.position);
     }
 
-    private void AssignResourceBase()
-    {
-        _minionMover.SetTargetPosition(_targetBase);
-    }
+    private void AssignResourceBase() => _minionMover.SetTargetPosition(_targetBase);
 }

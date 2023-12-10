@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MinionCollector : MonoBehaviour
@@ -21,8 +19,5 @@ public class MinionCollector : MonoBehaviour
         }
     }
 
-    public void SetTargetResource(Resource resource)
-    {
-        _resource = resource;
-    }
+    public void SetTargetResource(Resource resource) => _resource = resource;
 }
